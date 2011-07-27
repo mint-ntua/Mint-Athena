@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<museumdat:museumdatWrap xmlns="http://museum.zib.de/museumdat" xmlns:museumdat="http://museum.zib.de/museumdat" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://museum.zib.de/museumdat http://museum.zib.de/museumdat/museumdat-v1.0.xsd" museumdat:langencoding="RFC 3066" xml:lang="de">
+<museumdat:museumdat><museumdat:descriptiveMetadata>
+<museumdat:objectClassificationWrap>
+<museumdat:objectWorkTypeWrap>
+<museumdat:objectWorkType>Zeremonialgerät</museumdat:objectWorkType>
+</museumdat:objectWorkTypeWrap>
+</museumdat:objectClassificationWrap>
+<museumdat:identificationWrap>
+<museumdat:titleWrap>
+<museumdat:titleSet>
+<museumdat:title>Bronzeschilde</museumdat:title>
+</museumdat:titleSet>
+</museumdat:titleWrap>
+<museumdat:repositoryWrap>
+<museumdat:repositorySet>
+<museumdat:repositoryName>Landesmuseum für Vorgeschichte</museumdat:repositoryName>
+<museumdat:workID museumdat:type="Inventarnummer">HK 61:99, 1/2</museumdat:workID>
+</museumdat:repositorySet>
+</museumdat:repositoryWrap>
+</museumdat:identificationWrap>
+<museumdat:descriptionWrap>
+<museumdat:displayCreator></museumdat:displayCreator>
+<museumdat:displayCreationDate>8. Jh. v. Chr.</museumdat:displayCreationDate>
+<museumdat:displayCreationLocation></museumdat:displayCreationLocation>
+<museumdat:displayMeasurements>Maße: D: 68-71 cm</museumdat:displayMeasurements>
+<museumdat:displayMaterialsTech>Bronze</museumdat:displayMaterialsTech>
+<museumdat:displayEventWrap>
+<museumdat:displayEvent>Gefunden: 1844, Heiligengrabe</museumdat:displayEvent>
+</museumdat:displayEventWrap>
+<museumdat:descriptiveNoteWrap>
+<museumdat:descriptiveNoteSet museumdat:type="Objektbeschreibung">
+<museumdat:descriptiveNote>Moorfund, Bronzeblech, gehämmert, oval</museumdat:descriptiveNote>
+</museumdat:descriptiveNoteSet>
+</museumdat:descriptiveNoteWrap>
+</museumdat:descriptionWrap>
+<museumdat:eventWrap>
+<museumdat:indexingEventWrap>
+<museumdat:indexingEventSet>
+<museumdat:eventType>Hergestellt</museumdat:eventType>
+</museumdat:indexingEventSet>
+<museumdat:indexingEventSet>
+<museumdat:eventType>Gefunden</museumdat:eventType>
+<museumdat:indexingLocationWrap>
+<museumdat:indexingLocationSet>
+<museumdat:nameLocationSet>
+<museumdat:nameLocation>Heiligengrabe</museumdat:nameLocation>
+</museumdat:nameLocationSet>
+</museumdat:indexingLocationSet>
+</museumdat:indexingLocationWrap>
+</museumdat:indexingEventSet>
+</museumdat:indexingEventWrap>
+</museumdat:eventWrap>
+<museumdat:relationWrap>
+</museumdat:relationWrap>
+</museumdat:descriptiveMetadata>
+<museumdat:administrativeMetadata>
+<museumdat:recordWrap>
+<museumdat:recordID museumdat:type="objekt_id">1</museumdat:recordID>
+<museumdat:recordType>EINZELOBJEKT</museumdat:recordType>
+<museumdat:recordSource>www.museum-digital.de/san</museumdat:recordSource>
+<museumdat:recordInfoSet>
+<museumdat:recordInfoLink>http://www.museum-digital.de/san/index.php?t=objekt&amp;oges=1</museumdat:recordInfoLink>
+</museumdat:recordInfoSet>
+</museumdat:recordWrap>
+<museumdat:resourceWrap>
+<museumdat:resourceSet>
+<museumdat:resourceID>200w_lda01.jpg</museumdat:resourceID>
+<museumdat:resourceRelType>DOKUMENTATION</museumdat:resourceRelType>
+<museumdat:resourceType>DIGITALIMAGE</museumdat:resourceType>
+</museumdat:resourceSet>
+</museumdat:resourceWrap>
+</museumdat:administrativeMetadata>
+</museumdat:museumdat>
+</museumdat:museumdatWrap>

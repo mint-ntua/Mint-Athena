@@ -1,0 +1,1092 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://museum.zib.de/museumdat" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:doc="http://www.mda.org.uk/spectrumXML/Documentation" xmlns:gml="http://www.opengis.net/gml" xmlns:museumdat="http://museum.zib.de/museumdat">
+  <xsd:annotation>
+    <xsd:documentation>Museumdat</xsd:documentation>
+    <xsd:documentation>museumdat - Harvesting Format for Providing Core Data from Museum Holdings</xsd:documentation>
+    <xsd:documentation>Deutscher Museumsbund - Fachgruppe Dokumentation, Bildarchiv Foto Marburg, Institut f&#252;r Museumsforschung (SMB-PK), Zuse-Institut Berlin and Collections Trust</xsd:documentation>
+    <xsd:documentation>museumdat current version: 2009-07-27: museumdat-v1.7.xsd </xsd:documentation>
+    <xsd:documentation>museumdat v1.7</xsd:documentation>
+    <xsd:documentation>Prepared for Deutscher Museumsbund - Fachgruppe Dokumentation, Germany, and Collections Trust, UK
+by: Regine Stein - Bildarchiv Foto Marburg (r.stein@fotomarburg.de) and
+Richard Light (richard@light.demon.co.uk)</xsd:documentation>
+    <xsd:documentation>2009-07-27: version 1.7. This version includes additional concepts which are required to meet minimum SPECTRUM interchange requirements. created a fresh, or converted the following elements, to complex type XXXSet, with subelements displayXXX (repeatable for language variants) and XXX (optional, not repeatable; also a complex type): actordateeventmaterialsTechobjectobjectMeasurementsplacesubject (was indexingSubject)changed content model of event (formerly indexingEventSet):added roleInEventadded eventNamemodified date to eventDatemodified location to eventPlaceadded eventMethodmade thingPresent into an instance of objectrenamed eventRelated to relatedEvent, and made it an instance of relatedEventLinkthe actorInRole element has been created, representing an actor in context within an event, and containing the roleActor, attributionQualifierActor and extentActor elements which were in the previous actorSet, together with an actorSet elementadded placeClassification within place complex typedisplayIndexingSubject added to content model of indexingSubjectWrap to support unstructured content descriptionindexingSubjectSet has been renamed to subject, and extended with a number of new elements:subjectActorsubjectDatesubjectEventsubjectPlacesubjectObjectthe inscriptions element within inscriptionsWrap is assigned to the new complex type "textType", which allows a type attribute to qualify text, e.g. to indicate that the text is a transcription of the inscriptionextended rightsWorkSet so that it contains:rightsTyperightsDaterightsHoldercreditLineprovided a wrapper element rightsWorkWrap to contain rightsWorkSet for compatibility with other high-level wrapper elementsimproved modelling of relatedWorksWrap and relatedWorksSet so that multiple relationship types can be recorded</xsd:documentation>
+    <xsd:documentation>museumdat v1.6</xsd:documentation>
+    <xsd:documentation>Prepared for Deutscher Museumsbund - Fachgruppe Dokumentation by: Regine Stein - Bildarchiv Foto Marburg (r.stein@fotomarburg.de)</xsd:documentation>
+    <xsd:documentation>2009-07-20: version 1.6. This version is a substantial redesign and enhancement of the schema based on:Recommendations of the CDWA Lite/museumdat Working GroupExperiences and feedback after a two-year period of practical implementation and useFurther CIDOC-CRM analysis</xsd:documentation>
+    <xsd:documentation>This includes modified element grouping, moving display elements to corresponding index elements:objectClassificationWrapObject / Work TypeClassificationobjectIdentificationWrapTitle / Name (mandatory)InscriptionsRepository / LocationState / EditionObject DescriptionMeasurementseventWrapeventSetobjectRelationWrapSubject SetRelated Worksextended content model of event (formerly indexingEventSet):added eventIDchanged content model for eventTypemoved culture element into eventSetmoved materials/technique element into eventSetadded thingRelatedadded eventRelatedadded eventDescriptionimported GML namespacechanged content model of location:added _GML elementadded partOfLocationmodified identifier handling:introduced complex type identifierreplaced termsource/termsourceID attributes by proper, and repeatable identifier element (elements/sets restructured where necessary)attached identifier element to concept level instead of term or name level (e.g. actorID instead of termsourceID for nameActor)introduced identifier for museumdat element</xsd:documentation>
+    <xsd:documentation>History of the schema</xsd:documentation>
+    <xsd:documentation>museumdat is a generalisation of CDWA Lite - this schema specification is developed from CDWA Lite XML Schema: </xsd:documentation>
+    <xsd:documentation>CDWA Lite: XML Schema Content for Contributing Records via the OAI Harvesting Protocol (Version 2.0)</xsd:documentation>
+    <xsd:documentation>http://www.getty.edu/research/conducting_research/standards/cdwa/cdwalite.html </xsd:documentation>
+    <xsd:documentation>CDWA Lite is an XML schema to describe core records for works of art and material culture based on the Categories for the Description of Works of Art (CDWA) and Cataloging Cultural Objects: A Guide to Describing Cultural Works and Their Images (CCO).</xsd:documentation>
+    <xsd:documentation>Copyrights</xsd:documentation>
+    <xsd:documentation>For CDWA Lite:
+ &#169; 2005, 2006 ARTstor and J Paul Getty Trust.
+ Prepared for ARTstor and the Getty Research Institute /J Paul Getty Trust 
+ by:  Ameer Ahmed - ARTstor (aahmed@artstor.org)
+   Joseph Shubitowski - Getty Research Institute (JShubitowski@getty.edu)
+   Karim Boughida - Getty Research Institute (KBoughida@getty.edu)</xsd:documentation>
+    <xsd:documentation> For museumdat v1.0 - v1.6:
+  &#169; 2006-2009 Deutscher Museumsbund - Fachgruppe Dokumentation, Bildarchiv Foto Marburg, Institut f&#252;r Museumsforschung (SMB-PK), Zuse-Institut Berlin.
+ Prepared for Deutscher Museumsbund - Fachgruppe Dokumentation by: Regine Stein - Bildarchiv Foto Marburg (r.stein@fotomarburg.de)
+   Carlos Saro - Zuse Institute Berlin (saro@zib.de) </xsd:documentation>
+  </xsd:annotation>
+  <xsd:import schemaLocation="http://www.w3.org/2001/03/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:import schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/feature.xsd" namespace="http://www.opengis.net/gml"/>
+  <xsd:complexType name="actor">
+    <xsd:annotation>
+      <xsd:documentation>Complex type for indexing actor information. If there are multiple actors, repeat the containing actor element.</xsd:documentation>
+      <xsd:documentation>v1.0: indexingActorSet</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <!--actorID is identifier for actor as instance of E39 Actor-->
+      <xsd:element name="actorID" maxOccurs="unbounded" minOccurs="0" type="museumdat:identifier"/>
+      <xsd:element name="nameActorSet" maxOccurs="unbounded" type="museumdat:appellation">
+        <xsd:annotation>
+          <xsd:documentation>The names, appellations, or other identifiers assigned to an individual, group of people, firm or other corporate body, or other entity that has contributed to the design, creation, production, manufacture, or alteration of the work.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="nationalityActor" maxOccurs="unbounded" minOccurs="0" type="museumdat:concept"/>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="museumdat:vitalDatesActor"/>
+      <xsd:element name="genderActor" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>The sex of the individual. Not applicable for corporate bodies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="actorType">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="person"/>
+          <xsd:enumeration value="corporation"/>
+          <xsd:enumeration value="group"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="actorInRole">
+    <xsd:annotation>
+      <xsd:documentation>Element describing the role played by one or more actors in one event related to the work.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="actor" type="museumdat:actor"/>
+      <xsd:element name="roleActor" maxOccurs="unbounded" minOccurs="0" type="museumdat:concept"/>
+      <xsd:element name="attributionQualifierActor" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>A qualifier used when the attribution is uncertain, is in dispute, when there is more than one actor, when there is a former attribution, or when the attribution otherwise requires explanation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="extentActor" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>When there are multiple actors in the same event, a term indicating the part this actor was involved in.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <!--v1.0: indexingEventSet-->
+  </xsd:complexType>
+  <xsd:complexType name="actorInRoleSet">
+    <xsd:annotation>
+      <xsd:documentation>Complex type for information about an actor playing a role within an event. If there are multiple actors/roles, repeat actorInRoleSet.</xsd:documentation>
+      <xsd:documentation>v1.0: indexingActorSet</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="displayActorInRole" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>Repeat this element only for language variants!</xsd:documentation>
+          <xsd:documentation>The role(s) and name, brief biographical information of the named actors, presented in a syntax suitable for display to the end-user and including any necessary indications of uncertainty, ambiguity, and nuance. If there is no known actor, make a reference to the presumed culture or nationality of the unknown actor</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="actorInRole" minOccurs="0" type="museumdat:actorInRole"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="actorSet">
+    <xsd:annotation>
+      <xsd:documentation>Complex type for actor information. If there are multiple actors, repeat actorSet.</xsd:documentation>
+      <xsd:documentation>v1.0: indexingActorSet</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="displayActor" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>Repeat this element only for language variants!</xsd:documentation>
+          <xsd:documentation>The name, brief biographical information, and roles (if necessary) of the named actors, presented in a syntax suitable for display to the end-user and including any necessary indications of uncertainty, ambiguity, and nuance. If there is no known actor, make a reference to the presumed culture or nationality of the unknown actor</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="actor" minOccurs="0" type="museumdat:actor"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:attribute default="no" name="addedSearchTerm">
+    <xsd:simpleType>
+      <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="yes"/>
+        <xsd:enumeration value="no"/>
+      </xsd:restriction>
+    </xsd:simpleType>
+  </xsd:attribute>
+  <xsd:element name="administrativeMetadata">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="1" minOccurs="0" ref="museumdat:rightsWorkWrap">
+          <xsd:annotation>
+            <xsd:documentation>Information about rights management; may include copyright and other intellectual property statements required for use.</xsd:documentation>
+          </xsd:annotation>
+          <!--creditline to be included in refinement of rights element-->
+        </xsd:element>
+        <xsd:element ref="museumdat:recordWrap"/>
+        <xsd:element minOccurs="0" ref="museumdat:resourceWrap"/>
+      </xsd:sequence>
+      <xsd:attribute use="required" ref="xml:lang"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="appellation">
+    <xsd:annotation>
+      <xsd:documentation>Wrapper for a name for the item, e.g. a title, and its related information. If there is more than one name, repeat the Appellation element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element ref="museumdat:appellationValue"/>
+      <!--v1.0: title-->
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="museumdat:sourceAppellation"/>
+      <!--v1.0: sourceTitle-->
+    </xsd:sequence>
+    <!--v1.0: titleSet-->
+  </xsd:complexType>
+  <xsd:element name="appellationValue">
+    <xsd:annotation>
+      <xsd:documentation>Appellations, e.g. titles, identifying phrases, or names given to an item. For complex works, series, or collections, the title may refer to a discrete unit within the larger entity (a print from a series, a photograph in a collection, a panel from a fresco cycle, a building within a temple complex) or it may identify only the larger entity (series, collection, cycle) itself.</xsd:documentation>
+    </xsd:annotation>
+    <!--v1.0: title-->
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute ref="museumdat:pref"/>
+          <xsd:attribute ref="museumdat:type"/>
+          <xsd:attribute ref="xml:lang"/>
+          <xsd:attribute ref="museumdat:encodinganalog"/>
+          <xsd:attribute ref="museumdat:label"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="category">
+    <xsd:annotation>
+      <xsd:documentation>CIDOC CRM domain of the described item.</xsd:documentation>
+      <xsd:documentation>Preferably the source attribute refers to a CRM RDF version, e.g. http://cidoc.ics.forth.gr/rdfs/cidoc_crm_v5.0.1.rdfs</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute ref="museumdat:source"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="classificationWrap">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for classification information - terms used to categorize a work by grouping it together with other works on the basis of similar characteristics, including materials, form, shape, function, region of origin, cultural context, or historical or stylistic period. If the work is assigned to multiple classifications, repeat this element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="classification" maxOccurs="unbounded" minOccurs="0" type="museumdat:concept"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="concept">
+    <xsd:annotation>
+      <xsd:documentation>Set for identifiers and terms of a concept.</xsd:documentation>
+      <xsd:documentation>Used for: roleActor, culture, roleCulture</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="conceptID" minOccurs="0" type="museumdat:identifier"/>
+      <xsd:element name="term" maxOccurs="unbounded" minOccurs="0" type="museumdat:term"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="conceptType">
+    <xsd:annotation>
+      <xsd:documentation>Set for identifiers and terms of a concept, qualified by a type.</xsd:documentation>
+      <xsd:documentation>Used for: materialsTech, subject, placeClassification, conceptTerm, iconography, eventName, personalName, corporateBodyName, geographicName</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="conceptID" minOccurs="0" type="museumdat:identifier"/>
+      <xsd:element name="term" maxOccurs="unbounded" minOccurs="0" type="museumdat:term"/>
+    </xsd:sequence>
+    <xsd:attribute ref="museumdat:type"/>
+  </xsd:complexType>
+  <xsd:complexType name="date">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for one set of years in the proleptic Gregorian calendar delimiting the span of time during which the described event took place. If the event took place in a single year, repeat the same year in earliest and latest dates. For ca. and other uncertain or approximate dates, estimate the greatest possible span for indexing, as recommended in CCO and CDWA. But if e.g. different parts of the work were done at different times, or if different activities in the production of the work were done at different times, repeat the containing event element.</xsd:documentation>
+      <xsd:documentation>Replaces v1.0: indexingDates</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element ref="museumdat:earliestDate"/>
+      <xsd:element ref="museumdat:latestDate"/>
+      <xsd:element name="periodName" maxOccurs="1" minOccurs="0" type="museumdat:concept">
+        <xsd:annotation>
+          <xsd:documentation>A period name defining the range of dates associated with the event.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="dateSet">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for one set of years in the proleptic Gregorian calendar delimiting the span of time during which the described event took place.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="displayDate" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>Repeat this element only for language variants!</xsd:documentation>
+          <xsd:documentation>A concise description of the date or range of dates associated with the event, presented in a syntax suitable for display to the end-user and including any necessary indications of uncertainty, ambiguity, and nuance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="date" minOccurs="0" type="museumdat:date"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="descriptiveMetadata">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="museumdat:objectClassificationWrap"/>
+        <xsd:element ref="museumdat:objectIdentificationWrap"/>
+        <xsd:element minOccurs="0" ref="museumdat:eventWrap"/>
+        <xsd:element minOccurs="0" ref="museumdat:objectRelationWrap"/>
+      </xsd:sequence>
+      <xsd:attribute use="required" ref="xml:lang"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="descriptiveNote">
+    <xsd:sequence>
+      <xsd:element name="descriptiveNoteValue" minOccurs="0" type="museumdat:text"/>
+      <xsd:element name="sourceDescriptiveNote" maxOccurs="unbounded" minOccurs="0" type="museumdat:text"/>
+    </xsd:sequence>
+    <xsd:attribute ref="museumdat:type"/>
+  </xsd:complexType>
+  <xsd:element name="displayStateEditionWrap">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for Display State Editions</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="displayState" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>Repeat this element only for language variants!</xsd:documentation>
+            <xsd:documentation>A description of the state of the work; used primarily for prints and other multiples</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="displayEdition" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>Repeat this element only for language variants!</xsd:documentation>
+            <xsd:documentation>A description of the edition of the work; used primarily for prints and other multiples.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="sourceStateEdition" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>The published source of the state or edition information.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="earliestDate">
+    <xsd:annotation>
+      <xsd:documentation>A year that broadly delimits the beginning of an implied date span</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute ref="museumdat:source"/>
+          <xsd:attribute ref="museumdat:encodinganalog"/>
+          <xsd:attribute ref="museumdat:label"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:attribute type="xsd:string" name="encodinganalog"/>
+  <xsd:complexType name="event">
+    <xsd:annotation>
+      <xsd:documentation>Complex type for one event related with the work and its related information. If there is more than one event described, repeat the Event Set element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="eventID" maxOccurs="unbounded" minOccurs="0" type="museumdat:identifier"/>
+      <xsd:element name="eventType" type="museumdat:concept">
+        <xsd:annotation>
+          <xsd:documentation>Qualifier of the event, e.g. creation, discovery, ... Data values to be controlled. Recommended: Defined list of subclasses of CRM entity E5 Event.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="roleInEvent" maxOccurs="unbounded" minOccurs="0" type="museumdat:concept">
+        <xsd:annotation>
+          <xsd:documentation>The role played within this event by the object being recorded. This is an instance of CRM property P16.1 mode of use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="eventName" maxOccurs="unbounded" minOccurs="0" type="museumdat:appellation"/>
+      <xsd:element name="eventActor" maxOccurs="unbounded" minOccurs="0" type="museumdat:actorInRoleSet"/>
+      <xsd:element name="culture" maxOccurs="unbounded" minOccurs="0" type="museumdat:concept"/>
+      <xsd:element name="eventDate" minOccurs="0" type="museumdat:dateSet"/>
+      <xsd:element name="eventPlace" minOccurs="0" type="museumdat:placeSet"/>
+      <xsd:element name="eventMethod" maxOccurs="1" minOccurs="0" type="museumdat:concept">
+        <xsd:annotation>
+          <xsd:documentation>The method by which the event is carried out. Used e.g. for SPECTRUM Units of Information "field collection method", "acquisition method".</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="eventMaterialsTech" maxOccurs="unbounded" minOccurs="0" type="museumdat:materialsTechSet"/>
+      <xsd:element name="thingPresent" maxOccurs="unbounded" minOccurs="0" type="museumdat:objectSet"/>
+      <xsd:element name="relatedEvent" maxOccurs="unbounded" minOccurs="0" type="museumdat:eventSet">
+        <xsd:annotation>
+          <xsd:documentation>An event which is linked in some way to this event, e.g. a field trip within which this object was collected.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="eventDescriptionSet" maxOccurs="unbounded" minOccurs="0" type="museumdat:descriptiveNote"/>
+    </xsd:sequence>
+    <!--v1.0: indexingEventSet-->
+  </xsd:complexType>
+  <xsd:complexType name="eventSet">
+    <xsd:annotation>
+      <xsd:documentation>Wrapper for any event-mediated information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="displayEvent" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>Repeat this element only for language variants!</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="event" minOccurs="0" type="museumdat:event"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="eventWrap">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for a number of event descriptions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="eventSet" maxOccurs="unbounded" minOccurs="0" type="museumdat:eventSet"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:attribute type="xsd:string" name="geographicalEntity"/>
+  <xsd:complexType name="identifier">
+    <xsd:annotation>
+      <xsd:documentation>There is no controlled list of identifier types. Suggested values include, but are not limited to the following:doi (Digital Objects Identifier)guid (Globally unique identifier)hdl (Handle)isbn (International Standard Book Number)ismn (International Standard Music Number)isrc (International Standard Recording Code)issn (International Standard Serials Number)localpermalinkpurl (Persistent Uniform Resource Locator)url (Uniform Resource Locator)urn (Uniform Resource Name) </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute ref="museumdat:pref"/>
+        <xsd:attribute use="required" ref="museumdat:type"/>
+        <xsd:attribute ref="museumdat:source"/>
+        <xsd:attribute ref="museumdat:encodinganalog"/>
+        <xsd:attribute ref="museumdat:label"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:element name="inscriptionsWrap">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for Inscription information. Holds descriptions or transcriptions of any distinguishing or identifying physical lettering, annotations, texts, markings, or labels that are affixed, applied, stamped, written, inscribed, or attached to the work, excluding any mark or text inherent in the materials of which the work is made (record watermarks in Display Materials/Techniques).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="inscriptions" maxOccurs="unbounded" minOccurs="0" type="museumdat:textType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:attribute type="xsd:string" name="label"/>
+  <xsd:element name="latestDate">
+    <xsd:annotation>
+      <xsd:documentation>A year that broadly delimits the end of an implied date span.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute ref="museumdat:source"/>
+          <xsd:attribute ref="museumdat:encodinganalog"/>
+          <xsd:attribute ref="museumdat:label"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="legalBodyRef">
+    <xsd:annotation>
+      <xsd:documentation>Reference information to a legal body</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <!--legalBodyID is identifier for actor as instance of E39 Actor, legalBodyName holds identifier for the name as instance of E82 Actor Appellation-->
+      <xsd:element name="legalBodyID" maxOccurs="unbounded" minOccurs="0" type="museumdat:identifier"/>
+      <xsd:element name="legalBodyName" maxOccurs="unbounded" minOccurs="0" type="museumdat:appellation"/>
+      <xsd:element name="legalBodyWeblink" maxOccurs="unbounded" minOccurs="0" type="museumdat:webResource"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="linkRelatedResource">
+    <xsd:annotation>
+      <xsd:documentation>A reference to an image or other resource that is related to the resource in this Resource Set, generally linking a group or collection of images or other resources to members of the group or collection. For multiple related resources, repeat this element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="relatedResourceRelType" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>A term describing the nature of the relationship between the resource at hand and the related resource.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="labelRelatedResource" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>An identification of the related image or other resource that will be meaningful to end-users.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute ref="museumdat:linkscheme"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:attribute type="xsd:string" name="linkscheme"/>
+  <xsd:complexType name="materialsTech">
+    <xsd:annotation>
+      <xsd:documentation>Materials and techniques; if multiple parts of the work require separate materials and techniques, or if you are recording media and support separately, repeat this element qualifying the extent sub-element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="termMaterialsTech" maxOccurs="unbounded" minOccurs="0" type="museumdat:conceptType"/>
+      <xsd:element name="extentMaterialsTech" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>An explanation of the part of the work to which the materials or technique are applicable; included when necessary for clarity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="sourceMaterialsTech" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>The source of the information about materials and technique, often used when citing a published source of watermarks.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="materialsTechSet">
+    <xsd:annotation>
+      <xsd:documentation>Materials and techniques.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="displayMaterialsTech" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>Repeat this element only for language variants!</xsd:documentation>
+          <xsd:documentation>An indication of the substances or materials used in the creation of a work, as well as any implements, production or manufacturing techniques, processes, or methods incorporated in its fabrication, presented in a syntax suitable for display to the end-user and including any necessary indications of uncertainty, ambiguity, and nuance. For works on paper, descriptions of watermarks may also be included. (For marks applied to the work or support by the artist or subsequently by another person, see Inscriptions.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="materialsTech" maxOccurs="1" minOccurs="0" type="museumdat:materialsTech"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="measurementsSet">
+    <xsd:annotation>
+      <xsd:documentation>The dimensions or other measurements for one aspect of a work (e.g., width); may be combined with extent, qualifier, and other sub-elements as necessary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute use="required" type="xsd:string" name="unit"/>
+      <xsd:attribute use="required" ref="museumdat:type"/>
+      <xsd:attribute use="required" type="xsd:string" name="value"/>
+      <xsd:attribute ref="museumdat:encodinganalog"/>
+      <xsd:attribute ref="museumdat:label"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="museumdat">
+    <xsd:annotation>
+      <xsd:documentation>Holds the metadata for an item</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="museumdatRecID" maxOccurs="unbounded" type="museumdat:identifier">
+          <xsd:annotation>
+            <xsd:documentation>A unique museumdat record identification, preferably composed of an identifier for the contributor and a record identification in the contributor's (local) system.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element minOccurs="0" ref="museumdat:category">
+          <xsd:annotation>
+            <xsd:documentation>The CRM category of which this item is an instance.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element maxOccurs="unbounded" ref="museumdat:descriptiveMetadata">
+          <xsd:annotation>
+            <xsd:documentation>For fully multi-lingual resources, repeat this element once for each language represented.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element maxOccurs="unbounded" ref="museumdat:administrativeMetadata">
+          <xsd:annotation>
+            <xsd:documentation>For fully multi-lingual resources, repeat this element once for each language represented.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="museumdatWrap">
+    <xsd:annotation>
+      <xsd:documentation>Holds a collection of museumdat records</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" ref="museumdat:museumdat"/>
+      </xsd:sequence>
+      <xsd:attribute type="xsd:string" name="relatedencoding"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="object">
+    <xsd:annotation>
+      <xsd:documentation>Indexing terms for an object which is related in some way to the work being documented.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="objectWebResource" maxOccurs="unbounded" minOccurs="0" type="museumdat:webResource"/>
+      <xsd:element name="objectID" maxOccurs="unbounded" minOccurs="0" type="museumdat:identifier"/>
+      <xsd:element name="objectNote" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>A descriptive identification of the object that will be meaningful to end-users, including some or all of the following information, as necessary for clarity and if known: title, object/work type, important actor, date and/or place information, potentially place of the object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <!--v1.0 relatedWorkSet: linkRelatedWork -> relatedItemWebresource, locRelatedWork deprecated-->
+  </xsd:complexType>
+  <xsd:element name="objectClassificationWrap">
+    <xsd:annotation>
+      <xsd:documentation>Wrapper for object classification information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="museumdat:objectWorkTypeWrap"/>
+        <xsd:element minOccurs="0" ref="museumdat:classificationWrap"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="objectDescriptionWrap">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for Description/Descriptive Note information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="objectDescriptionSet" maxOccurs="unbounded" minOccurs="0" type="museumdat:descriptiveNote"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="objectIdentificationWrap">
+    <xsd:annotation>
+      <xsd:documentation>Wrapper for identification information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="museumdat:titleWrap"/>
+        <xsd:element minOccurs="0" ref="museumdat:inscriptionsWrap"/>
+        <xsd:element minOccurs="0" ref="museumdat:repositoryWrap"/>
+        <xsd:element minOccurs="0" ref="museumdat:displayStateEditionWrap"/>
+        <xsd:element minOccurs="0" ref="museumdat:objectDescriptionWrap"/>
+        <xsd:element minOccurs="0" ref="museumdat:objectMeasurementsWrap"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="objectMeasurements">
+    <xsd:annotation>
+      <xsd:documentation>The dimensions, size, shape, scale, format, or storage configuration of the work, including volume, weight, area or running time. Measurements are formatted to allow retrieval; preferably in metric units where applicable; if multiple parts of the work are measured, repeat the Indexing Measurements element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="museumdat:measurementsSet"/>
+      <xsd:element name="extentMeasurements" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>An explanation of the part of the work being measured; included when necessary for clarity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="qualifierMeasurements" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>A word or phrase that elaborates on the nature of the measurements of the work when necessary, as when the measurements are approximate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="formatMeasurements" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>The configuration of a work, including technical formats, used as necessary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="shapeMeasurements" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>The shape of a work, used for unusual shapes (e.g., an oval painting).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="scaleMeasurements" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>An expression of the ratio between the size of the representation of something and that thing (e.g., the size of the drawn structure and the actual built work). Used for studies, record drawings, models, and other representations drawn or constructed to scale.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="objectMeasurementsSet">
+    <xsd:annotation>
+      <xsd:documentation>The dimensions, size, shape, scale, format, or storage configuration of the work, including volume, weight, area or running time. Measurements are formatted to allow retrieval; preferably in metric units where applicable; if multiple parts of the work are measured, repeat the Indexing Measurements element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="displayObjectMeasurements" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>Repeat this element only for language variants!</xsd:documentation>
+          <xsd:documentation>Information about the dimensions, size, or scale of the work, presented in a syntax suitable for display to the end-user and including any necessary indications of uncertainty, ambiguity, and nuance. It may include the scale of the work. It may also include the number of the parts of a complex work, series, or collection.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="objectMeasurements" maxOccurs="1" minOccurs="0" type="museumdat:objectMeasurements"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="objectMeasurementsWrap">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for the Measurements.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="objectMeasurementsSet" maxOccurs="unbounded" minOccurs="0" type="museumdat:objectMeasurementsSet"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="objectRelationWrap">
+    <xsd:annotation>
+      <xsd:documentation>Wrapper for related subjects or works information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element minOccurs="0" ref="museumdat:subjectWrap"/>
+        <xsd:element minOccurs="0" ref="museumdat:relatedWorksWrap"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="objectSet">
+    <xsd:annotation>
+      <xsd:documentation>An object which is related in some way to the work being documented.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="displayObject" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>Repeat this element only for language variants!</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="object" maxOccurs="1" minOccurs="0" type="museumdat:object"/>
+      <!--v1.0 relatedWorkSet: linkRelatedWork -> relatedItemWebresource, locRelatedWork deprecated-->
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="objectWorkTypeWrap">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for Object/Work Types. Object Work Types are terms identifying the specific kind of object or work being described. For a collection, include repeating instances for terms identifying all of or the most important items in the collection.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="objectWorkType" maxOccurs="unbounded" type="museumdat:concept"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="place">
+    <xsd:annotation>
+      <xsd:documentation>An index set for the place name - only to repeat for indexing purposes (import of broader place entities).</xsd:documentation>
+      <xsd:documentation>An event can take place only in one place!</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <!--placeID is identifier for place as instance of E53 Place-->
+      <xsd:element name="placeID" maxOccurs="unbounded" minOccurs="0" type="museumdat:identifier"/>
+      <xsd:element name="namePlaceSet" maxOccurs="unbounded" minOccurs="0" type="museumdat:appellation">
+        <xsd:annotation>
+          <xsd:documentation>The name of the geographic place where the event took place. If there are different names of the same place, e.g. today's and historical names, repeat this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="gml:_GML">
+        <xsd:annotation>
+          <xsd:documentation>GML-conformant Content, instantiation to be included</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="partOfPlace" maxOccurs="unbounded" minOccurs="0" type="museumdat:place">
+        <xsd:annotation>
+          <xsd:documentation>Allows for indexing larger geographical entities.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="placeClassification" maxOccurs="unbounded" minOccurs="0" type="museumdat:conceptType">
+        <xsd:annotation>
+          <xsd:documentation>A classification of the place, e.g. by geological complex, stratigraphic unit or habitat type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute ref="museumdat:politicalEntity"/>
+    <xsd:attribute ref="museumdat:geographicalEntity"/>
+  </xsd:complexType>
+  <xsd:complexType name="placeSet">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for a place description and index terms.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="displayPlace" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>Repeat this element only for language variants!</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="place" minOccurs="0" type="museumdat:place"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:attribute type="xsd:string" name="politicalEntity"/>
+  <xsd:attribute name="pref">
+    <xsd:simpleType>
+      <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="preferred"/>
+        <xsd:enumeration value="alternate"/>
+      </xsd:restriction>
+    </xsd:simpleType>
+  </xsd:attribute>
+  <xsd:element name="recordInfoSet">
+    <xsd:annotation>
+      <xsd:documentation>Wrapper for metadata information about this record.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="recordInfoID" maxOccurs="unbounded" minOccurs="0" type="museumdat:identifier"/>
+        <xsd:element name="recordInfoLink" maxOccurs="unbounded" minOccurs="0" type="museumdat:webResource">
+          <xsd:annotation>
+            <xsd:documentation>Link of the metadata (not the same as link of the object).</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="recordRelID" maxOccurs="unbounded" minOccurs="0" type="museumdat:identifier">
+          <xsd:annotation>
+            <xsd:documentation>Unique ID of the metadata of the related object.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="recordMetadataLoc" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>Pointer(s) to other metadata (administrative, technical, structural).</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="recordMetadataDate" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>Creation date or date modified.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute ref="museumdat:type"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="recordWrap">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for information about the record that contains the cataloguing information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="recordID" maxOccurs="unbounded" type="museumdat:identifier">
+          <xsd:annotation>
+            <xsd:documentation>A unique record identification in the contributor's (local) system.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="recordType" type="museumdat:text"/>
+        <!--category?-->
+        <xsd:element name="recordSource" maxOccurs="unbounded" type="museumdat:legalBodyRef">
+          <xsd:annotation>
+            <xsd:documentation>The source of information in this record, generally the repository or other institution.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="museumdat:recordInfoSet"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="relatedWorksSet">
+    <xsd:annotation>
+      <xsd:documentation>A set of Related Works information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="relatedWork" maxOccurs="unbounded" minOccurs="0" type="museumdat:objectSet"/>
+        <xsd:element name="relatedWorkRelType" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>A term describing the nature of the relationship between the work at hand and the related entity.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="relatedWorksWrap">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for Related Works information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="museumdat:relatedWorksSet"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="repositorySet">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for the repository name.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="repositoryName" minOccurs="0" type="museumdat:legalBodyRef"/>
+        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="museumdat:workID"/>
+        <xsd:element name="repositoryLocation" minOccurs="0" type="museumdat:place"/>
+        <!--replaces v1.0 repositoryLocationName-->
+      </xsd:sequence>
+      <xsd:attribute name="repositoryType">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="current"/>
+            <xsd:enumeration value="former"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="repositoryWrap">
+    <xsd:annotation>
+      <xsd:documentation>Wrapper for Repository information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="museumdat:repositorySet"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="resourceSet">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for sets of resource information. If there are multiple resources associated with the object, repeat the Resource Set sub-element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="linkResource" maxOccurs="unbounded" minOccurs="0" type="museumdat:webResource"/>
+        <xsd:element name="resourceID" minOccurs="0" type="museumdat:identifier"/>
+        <xsd:element name="resourceRelType" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>The relationship of an image or other resource to the work being described.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="resourceType" maxOccurs="unbounded" minOccurs="0" type="museumdat:term">
+          <xsd:annotation>
+            <xsd:documentation>The generic identification of the medium of the image or other resource.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="rightsResource" maxOccurs="unbounded" minOccurs="0" type="museumdat:rights">
+          <xsd:annotation>
+            <xsd:documentation>Information about rights regarding the image or other resource. Use this sub-element if the holder of the reproduction rights for the image/resource differs from the holder of rights for the work. See also Rights Work above. (E.g., the work rights are " National Museum of African Art, Smithsonian Instituition (Washing DC), " but the image rights are "Photo Frank Khoury.")</xsd:documentation>
+          </xsd:annotation>
+          <!--creditline to be included in refinement of rights element-->
+        </xsd:element>
+        <xsd:element name="resourceViewDescription" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>A description of the spatial, chronological, or contextual aspects of the work as captured in the view of this particular image or other resource.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="resourceViewType" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>The specific vantage point or perspective of the view.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="resourceViewSubjectTerm" maxOccurs="unbounded" minOccurs="0" type="museumdat:conceptType">
+          <xsd:annotation>
+            <xsd:documentation>Terms or phrases that characterize the subject matter of the work as it is depicted in a specific image or other resource.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element minOccurs="0" ref="museumdat:resourceViewDate"/>
+        <xsd:element name="resourceSource" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>Identification of the agency, individual, repository, or publication from which the image or other resource was obtained, including a bibliographic citation in the case of copy photography. Include this sub-element when the source of the image/resource differs from the source named in Record Source.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="museumdat:linkRelatedResource"/>
+        <xsd:element name="resourceMetadataLoc" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>Pointer(s) to other metadata (administrative, technical, structural).</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="resourceViewDate">
+    <xsd:annotation>
+      <xsd:documentation>A date or range of dates associated with the creation or production of the image. This is not necessarily the same as the date of production of the resource (e.g., a print of a negative may be made years after the image was first captured on film). For the date of the resource, use Resource Date.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute type="xsd:string" name="earliestdate"/>
+          <xsd:attribute type="xsd:string" name="latestdate"/>
+          <xsd:attribute ref="museumdat:encodinganalog"/>
+          <xsd:attribute ref="museumdat:label"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="resourceWrap">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for image information. An identification of an image (visual surrogate) of the work, including digital images, slides, transparencies, photographs, and moving images, but excluding items that are considered works in their own right. For works such as drawings, prints, paintings, or photographs considered art, and other works that themselves contain representations of other works, use Related Works and/or Subjects.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="museumdat:resourceSet"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="rights">
+    <xsd:annotation>
+      <xsd:documentation>Information about rights management; may include copyright and other intellectual property statements required for use.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="rightsType" maxOccurs="unbounded" minOccurs="0" type="museumdat:text"/>
+      <xsd:element name="rightsDate" maxOccurs="unbounded" minOccurs="0" type="museumdat:date"/>
+      <xsd:element name="rightsHolder" maxOccurs="unbounded" minOccurs="0" type="museumdat:legalBodyRef"/>
+      <xsd:element name="creditLine" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+        <xsd:annotation>
+          <xsd:documentation>Repeat this element only for language variants.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="rightsWorkSet">
+    <xsd:annotation>
+      <xsd:documentation>Information about rights management; may include copyright and other intellectual property statements required for use.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="rightsType" maxOccurs="unbounded" minOccurs="0" type="museumdat:text"/>
+        <xsd:element name="rightsDate" maxOccurs="unbounded" minOccurs="0" type="museumdat:date"/>
+        <xsd:element name="rightsHolder" maxOccurs="unbounded" minOccurs="0" type="museumdat:legalBodyRef"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="rightsWorkWrap">
+    <xsd:annotation>
+      <xsd:documentation>Wrapper for rights information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="rightsWorkSet" maxOccurs="unbounded" minOccurs="0" type="museumdat:rights"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:attribute type="xsd:string" name="source"/>
+  <xsd:element name="sourceAppellation">
+    <xsd:annotation>
+      <xsd:documentation>The source for the appellation, generally a published source.</xsd:documentation>
+    </xsd:annotation>
+    <!--v1.0: sourceTitle-->
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute ref="xml:lang"/>
+          <xsd:attribute ref="museumdat:encodinganalog"/>
+          <xsd:attribute ref="museumdat:label"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="subject">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for one set of Subject Indexing information. If a work has multiple parts or otherwise has separate, multiple subjects, repeat this element with Extent Subject. This element may also be repeated to distinguish between subjects that reflect what a work is *of* (description and identification) from what it is *about* (interpretation).</xsd:documentation>
+      <xsd:documentation>[At present the content model consists largely of elements, but we agreed that these should mostly be complex types. This requires the elements in question to be re-defined as complex types.]</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="extentSubject" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>When there are multiple subjects, a term indicating the part of the work to which these subject terms apply.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="subjectConcept" maxOccurs="unbounded" minOccurs="0" type="museumdat:conceptType"/>
+        <xsd:element name="subjectActor" maxOccurs="unbounded" minOccurs="0" type="museumdat:actorSet"/>
+        <xsd:element name="subjectDate" maxOccurs="unbounded" minOccurs="0" type="museumdat:dateSet"/>
+        <xsd:element name="subjectEvent" maxOccurs="unbounded" minOccurs="0" type="museumdat:eventSet"/>
+        <xsd:element name="subjectPlace" maxOccurs="unbounded" minOccurs="0" type="museumdat:placeSet"/>
+        <xsd:element name="subjectObject" maxOccurs="unbounded" minOccurs="0" type="museumdat:objectSet"/>
+      </xsd:sequence>
+      <xsd:attribute ref="museumdat:type"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="subjectSet">
+    <xsd:annotation>
+      <xsd:documentation>A single set of subject indexing information, together with its textual equivalent.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="displaySubject" maxOccurs="unbounded" minOccurs="0" type="museumdat:text">
+          <xsd:annotation>
+            <xsd:documentation>A free-text description of the subject matter represented by/in the object.</xsd:documentation>
+            <xsd:documentation>Repeat this element only for language variants!</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="museumdat:subject"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="subjectWrap">
+    <xsd:annotation>
+      <xsd:documentation>A wrapper for Subject Indexing information about the work, group, collection, or series that is being catalogued.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="museumdat:subjectSet"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="term">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute ref="museumdat:pref"/>
+        <xsd:attribute ref="museumdat:addedSearchTerm"/>
+        <xsd:attribute ref="xml:lang"/>
+        <xsd:attribute ref="museumdat:encodinganalog"/>
+        <xsd:attribute ref="museumdat:label"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="text">
+    <xsd:annotation>
+      <xsd:documentation>Simple text element with encodinganalog and label attribute</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute ref="xml:lang"/>
+        <xsd:attribute ref="museumdat:encodinganalog"/>
+        <xsd:attribute ref="museumdat:label"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="textType">
+    <xsd:annotation>
+      <xsd:documentation>Text element with encodinganalog, label and type attribute</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute ref="xml:lang"/>
+        <xsd:attribute ref="museumdat:encodinganalog"/>
+        <xsd:attribute ref="museumdat:label"/>
+        <xsd:attribute name="type" type="xsd:string"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:element name="titleWrap">
+    <xsd:annotation>
+      <xsd:documentation>Wrapper for Title information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="titleSet" maxOccurs="unbounded" type="museumdat:appellation"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:attribute type="xsd:string" name="type"/>
+  <xsd:element name="vitalDatesActor">
+    <xsd:annotation>
+      <xsd:documentation>A description of the lifespan of the person or the existence of the corporate body, using "ca." and any other expressions of uncertainty or nuance. For Birth and Death date attributes, record years of birth and death, estimated where necessary. For a corporate body, use birthdate and deathdate to record the dates of founding and dissolution.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute type="xsd:string" name="birthDate"/>
+          <xsd:attribute type="xsd:string" name="deathDate"/>
+          <xsd:attribute ref="museumdat:source"/>
+          <xsd:attribute ref="museumdat:encodinganalog"/>
+          <xsd:attribute ref="museumdat:label"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="webResource">
+    <xsd:annotation>
+      <xsd:documentation>A uri/url reference to a web resource that describes / represents the item, e.g. a metadata record. Note that it differs from an identifier for the item itself.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute ref="museumdat:pref"/>
+        <xsd:attribute ref="xml:lang"/>
+        <xsd:attribute type="xsd:string" name="formatResource"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:element name="workID">
+    <xsd:annotation>
+      <xsd:documentation>Any unique numeric or alphanumeric identifier(s) assigned to a work by a repository.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute ref="museumdat:type"/>
+          <xsd:attribute ref="museumdat:encodinganalog"/>
+          <xsd:attribute ref="museumdat:label"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

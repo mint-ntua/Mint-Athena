@@ -1,0 +1,29 @@
+create a database in Postgresql
+
+=>createdb -U postgres -E UTF8 athena
+
+Login and create a User for the application
+
+=>psql -U postgres athena
+=>create user athena password 'athena' login;
+=>alter role athena set search_path to athena,public;
+=>grant all on database athena to athena;
+
+logout with
+=>\q
+
+login again as athena and read in the schema
+its helpful to be in the directory with the createSchema.sql file
+
+=>psql -U athena athena
+=>\i createSchema.sql
+
+That should setup the schema!
+
+-- postgres configuration
+
+edit the postgresql.conf file and set
+#constraint_exclusion = off
+constraint_exclusion = on
+
+to enable quick xml_node table searches for uploads

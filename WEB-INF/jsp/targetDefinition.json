@@ -1,0 +1,49 @@
+{
+	"xsd":          "lido-v0.9-proxy.xsd",
+	"namespaces":	{
+		"lido":		"http://www.lido-schema.org"
+	},
+	
+    "wrap":         {
+        "element":  "lidoWrap",
+        "prefix":	"lido"
+    },
+    
+	"item":         {
+        "element":  "lido",
+        "prefix":	"lido"
+    },
+    
+    "version":      "1.0",
+    
+	"groups": [
+	  {
+		"name": 	"Object Identification",
+        "element":    "objectIdentificationWrap"
+      },
+      {
+		"name": 	"Object Classification",
+        "element":    "objectClassificationWrap"
+      },
+      {
+		"name": 	"Object Relation",
+        "element":    "objectRelationWrap"
+      },
+      {
+		"name": 	"Event",
+        "element":    "eventWrap"
+      },
+      {
+		"name": 	"Rights Work",
+        "element":    "rightsWorkWrap"
+      },
+      {
+		"name": 	"Record",
+        "element":    "recordWrap"
+      },
+      {
+		"name": 	"Resource",
+        "element":    "resourceWrap"
+      }
+    ]
+}

@@ -1,0 +1,43 @@
+<!-- 
+Specify in deploy target what this has to do to get the build onto this platform
+Usually athena.properties have to be copied, hibernate.properties have to be modified.
+Maybe an rsync to the target tomcat??
+ -->
+<project name="mint-deploy" >
+
+<dirname property="deploydir" file="${ant.file.mint-deploy}" />
+
+<target name="modify-specific"  >
+	<!--  modify the distribution in ${dist}/${appname}-->
+		<echo message="deploydir=${deploydir} basename=${basename}" />
+		<copy overwrite="true" todir="${dist}/${appname}/WEB-INF/classes" >
+			<fileset dir="${deploydir}" includes="*.properties" />
+		</copy>
+		<copy overwrite="true" todir="${dist}/${appname}/WEB-INF/src/java" >
+			<fileset dir="${deploydir}" includes="*.properties" />
+		</copy>
+</target>
+
+
+<target name="deploy-specific" depends="deploy-local,deploy-rsync" />
+ 
+<target name="deploy-rsync" unless="deploy_local" >
+<!-- 
+	 Tomcat only reloads context on change. 
+     Might run out of memory anyway  	    
+ -->
+ <exec executable="rsync">
+    <arg value="-rpult"/>
+    <arg value="--rsh=ssh"/>
+    <arg value="${dist}/${appname}"/>
+    <arg value="root@oreo.image.ece.ntua.gr:/usr/local/apache-tomcat-6.0.29/webapps"/>
+  </exec>
+</target>
+
+<target name="deploy-local"  if="deploy_local" >
+   <copy todir="/usr/local/apache-tomcat-6.0.29/webapps/${appname}">
+   		<fileset dir="${dist}/${appname}" />
+   </copy>
+</target>
+
+</project>

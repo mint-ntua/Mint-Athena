@@ -1,0 +1,35 @@
+{
+	"xsd":          "lido-v0.7.xsd",
+    "namespace":    "lido",
+	"root":         "lido",
+	"groups": [
+	  {
+		"name": 	"Object Identification",
+        "element":    "objectIdentificationWrap"
+      },
+      {
+		"name": 	"Object Classification",
+        "element":    "objectClassificationWrap"
+      },
+      {
+		"name": 	"Object Relation",
+        "element":    "objectRelationWrap"
+      },
+      {
+		"name": 	"Event",
+        "element":    "eventWrap"
+      },
+      {
+		"name": 	"Rights Work",
+        "element":    "rightsWorkWrap"
+      },
+      {
+		"name": 	"Record",
+        "element":    "recordWrap"
+      },
+      {
+		"name": 	"Resource",
+        "element":    "resourceWrap"
+      }
+    ]
+}

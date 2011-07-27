@@ -1,0 +1,11 @@
+athenaFtpServer = ftp.image.ece.ntua.gr
+#ftp user and pass should be allowed to read the incoming data
+ftpUser = anonymous
+ftpPassword = some@ntua.gr
+ftpIncomingDir = 
+oaiIncomingDir = c:\\oai\\
+adminMail=achristaki@image.ntua.gr
+mailHost=147.102.11.1
+xmlsource=WEB-INF\\jsp\\museumDAT.xml
+targetDefinition=WEB-INF/jsp/targetDefinition.json
+testZip = /Users/admin/Projects/Athina/small_mets.zip
