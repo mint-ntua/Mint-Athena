@@ -13,3 +13,7 @@ To deploy mint you need to download
 * PostgreSQL
 
 and follow the [installation instructions](http://mint.image.ece.ntua.gr/redmine/projects/mint/wiki/Mint_Installation_instructions)
+
+
+>For more information about mint services, visit http://mint.image.ece.ntua.gr
+ 
