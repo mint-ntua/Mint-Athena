@@ -16,3 +16,46 @@ To deploy mint you need to download
 
 and follow the [installation instructions](http://mint.image.ece.ntua.gr/redmine/projects/mint/wiki/Mint_Installation_instructions)
 
+### Required jars
+
+antlr-2.7.6.jar 
+c3p0-0.9.1.jar 
+commons-beanutils-1.8.0.jar 
+commons-beanutils-core-1.8.0.jar 
+commons-cli-1.1.jar 
+commons-collections-3.1.jar 
+commons-fileupload-1.2.1.jar 
+commons-io-1.3.2.jar 
+commons-lang-2.3.jar 
+commons-logging.jar 
+commons-logging-1.1.jar 
+dom4j-1.6.1.jar 
+ejb3-persistence.jar 
+ezmorph-1.0.6.jar 
+freemarker-2.3.13.jar 
+groovy-all-1.6.3.jar 
+hibernate3.jar 
+hibernate-commons-annotations.jar 
+icu4j-3.4.4.jar 
+iri-0.8.jar 
+javassist-3.4.GA.jar 
+jta-1.1.jar 
+junit-3.8.1.jar 
+log4j-1.2.15.jar 
+lucene-analyzers.jar 
+lucene-core.jar 
+lucene-highlighter.jar 
+lucene-queries.jar 
+lucene-snowball.jar 
+lucene-spellchecker.jar 
+mailapi.jar 
+ognl-2.6.11.jar 
+relaxngDatatype.jar 
+slf4j-api-1.5.6.jar 
+slf4j-log4j12-1.5.6.jar 
+struts2-core-2.1.6.jar 
+xalan.jar 
+xercesImpl.jar 
+xml-apis.jar 
+xom-1.2.4.jar 
+xwork-2.1.2.jar 
