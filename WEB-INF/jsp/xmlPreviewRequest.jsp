@@ -7,7 +7,7 @@
 <%@page import="gr.ntua.ivml.athena.mapping.*"%>
 <%@page import="gr.ntua.ivml.athena.xml.transform.*"%>
 <jsp:useBean id='mapsum' class='gr.ntua.ivml.athena.mapping.MappingSummary' scope='request'/>
-<jsp:useBean id="fullDoc" class="gr.ntua.ivml.athena.xml.FullBean"/>
+
 
 
 <style type="text/css">
@@ -55,17 +55,7 @@ if(uploadId == null) {
 	else {
 		missing=mapsum.getMissingMappings(mappings);
 	    invalid=mapsum.getInvalidXPaths(du,mappings);
-	    
-//	    if(invalid.size()==0){ - by fxeni, removed check for invalid paths
-	    String output_ese=(String) request.getAttribute( "eseXml" );
-	    if(output_ese != null && output_ese.length() > 0) {
-	    	try{
-			 fullDoc=gr.ntua.ivml.athena.xml.ESEToFullBean.getFullBean(output_ese);
-	    	}
-	    	catch(Exception e) {
-	    		System.out.println(e.getMessage());
-	    	}
-	      }
+
 //	    }		
 	}
 	
@@ -150,7 +140,6 @@ if(uploadId == null) {
 	      
 	        <li><a href="#tab5"><em>Output XML (Lido)</em></a></li> 
 	        <li><a href="#tab6"><em>Output XML (ESE)</em></a></li>
-	        <li><a href="#tab7"><em>Europeana</em></a></li>
 	      
 	     
 	    </ul>             
@@ -248,10 +237,7 @@ if(uploadId == null) {
 	        		StringEscapeUtils.escapeHtml((String) request.getAttribute( "eseXml" ))
 	        	%></textarea>
 	        </div></p></div>
-	        <div><p><div style="width: 100%; height: 350px; overflow-x: auto; overflow-y: auto; background-color:#FFFFFF;">
-	               <%@ include file="eseview.jsp"%>
-	        </div></p></div>
-	    
+	       
 	     
 	         </div> 
 	</div> 

@@ -3,8 +3,7 @@
 <%@page import="gr.ntua.ivml.athena.persistent.Organization"%>
 <%@page import="gr.ntua.ivml.athena.persistent.DataUpload"%>
 <%@page import="gr.ntua.ivml.athena.persistent.Publication"%>
-<%@page import="gr.ntua.ivml.athena.util.OAIStats"%>
-<%@page import="gr.ntua.ivml.athena.util.MongoStats"%>
+
 <link rel="stylesheet" type="text/css" href="css/stylish-select.css" />
 
 <script src="js/jquery.min.js" type="text/javascript"></script>
@@ -240,7 +239,6 @@ width:90px;
 	</div>
      <ul id="browser" class="filetree">
      	<%List<String> countries=(List<String>)request.getAttribute("countries");
-	  MongoStats st = new MongoStats();
      	  for(int i=0;i<countries.size();i++){%>
      	<li id="licountry<%=i %>" class="closed"><span class="folder" onclick="if(document.getElementById('licountry<%=i %>').className=='closed collapsable'){hidelAllCountryOrgs(<%=i %>);}">    	
      	<b><%=countries.get(i) %></b>
@@ -268,16 +266,13 @@ width:90px;
         			}
         		}
             	Publication p=DB.getPublicationDAO().findByOrganization(orgs.get(j));
-            //	st.findEseByOrg(orgs.get(j).getName());
             	totalitems+=result;
             	if(p!=null){
-            		totalese=st.findEseByOrg(orgs.get(j).getName().replace(" ", "_"));
-            	  //totalese=(int)p.getItemCount();
+            	  totalese=(int)p.getItemCount();
             	}
             	totalpub+=totalese;
                 totallido+=transformed;
                 if(result>0){found=true;}
-                
             %>
      		   <li>
      		  
@@ -306,7 +301,7 @@ width:90px;
 			           <tr><td style="padding-left:4px;padding-top:3px;vertical-align:bottom;"><b>Total LIDO Items:</b></td><td align="left" style="vertical-align:bottom;"><%=transformed %></td>
 			             </tr>
 			             <tr><td colspan="2" height="1" bgcolor="#ffffff"></td></tr>
-			            <tr><td style="color:#009900; padding-left:4px;padding-top:3px;vertical-align:bottom;"><b>Total ESE Items:</b></td><td align="left" style="color:#008800; vertical-align:bottom;"><%=totalese %></td>
+			            <tr><td style="padding-left:4px;padding-top:3px;vertical-align:bottom;"><b>Total ESE Items:</b></td><td align="left" style="vertical-align:bottom;"><%=totalese %></td>
 			             </tr>
 			                <tr><td colspan="2" height="1" bgcolor="#ffffff"></td></tr>
 			             <tr><td style="padding-left:4px;padding-top:3px;vertical-align:bottom;"><b>Total Users:</b></td><td align="left" style="vertical-align:bottom;"><%=users %></td>
@@ -372,7 +367,7 @@ width:90px;
 			             <tr><td style="padding-left:4px;padding-top:3px;"><b>Total LIDO Items:</b></td><td align="left" style="vertical-align:bottom;padding-left:15px;"><%=totallido %></td>
 			             </tr>
 			              <tr><td colspan="2" height="1" bgcolor="#ffffff"></td></tr>
-			               <tr><td style="color:#009900; padding-left:4px;padding-top:3px;"><b>Total ESE Items:</b></td><td align="left" style="color:#008800; vertical-align:bottom;padding-left:15px;"><%=totalpub %></td>
+			               <tr><td style="padding-left:4px;padding-top:3px;"><b>Total ESE Items:</b></td><td align="left" style="vertical-align:bottom;padding-left:15px;"><%=totalpub %></td>
 			             </tr>
 			               <tr><td colspan="2" height="1" bgcolor="#ffffff"></td></tr>
 			             <tr><td style="padding-left:4px;padding-top:3px;vertical-align:top;"><b>Countries contributing:</b></td><td align="left" style="vertical-align:bottom;padding-left:15px;"><%=data %></td>
@@ -383,7 +378,7 @@ width:90px;
 			             </table>   
    		</td></tr>
 	</table>
-   <br><font size="0.9em">&nbsp;* Reporting on ESE items comes from the ATHENA OAI repository where data <br/>is available for harvesting by Europeana</font>
+   
 </div>
 </td>
 </tr>

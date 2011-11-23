@@ -5,7 +5,7 @@
 <%@page import="gr.ntua.ivml.athena.persistent.*"%>
 <%@page import="gr.ntua.ivml.athena.mapping.*"%>
 <%@page import="gr.ntua.ivml.athena.xml.transform.*"%>
-<jsp:useBean id="fullDoc" class="gr.ntua.ivml.athena.xml.FullBean"/>
+
 <div class="yui-skin-sam" style="width: 100%; height: 100%">
 <%
 String uploadId = request.getParameter("uploadId");
@@ -103,7 +103,6 @@ if(uploadId == null) {
 			}
 			if(ese != null && ese.length() > 0) {
 				output_ese = t.transform(output_xml, ese);
-				fullDoc=gr.ntua.ivml.athena.xml.ESEToFullBean.getFullBean(output_ese);
 			
 				output_ese = XMLFormatter.format(output_ese);
 				}
@@ -147,7 +146,6 @@ if(uploadId == null) {
 	        <li><a href="#tab3"><em>Output XML (Lido)</em></a></li>
 	        <%} %> 
 	        <li><a href="#tab3"><em>Output XML (ESE)</em></a></li> 
-	        <li><a href="#tab4"><em>Europeana</em></a></li> 
 	    </ul>             
 	    <div class="yui-content"> 
 	    <%if(input_xml.length()>10000){ %>
@@ -198,10 +196,7 @@ if(uploadId == null) {
 	        		StringEscapeUtils.escapeHtml(output_ese)
 	        	%></textarea>
 	        </div></p></div>
-	         <div><p><div style="width: 100%; height: 360px; overflow-x: auto; overflow-y: auto; background-color:#FFFFFF;">
-	               <%@ include file="eseview.jsp"%>
-	    
-   	        </div></p></div>
+	         
 	    </div> 
 	</div> 
 	

@@ -73,11 +73,11 @@ YAHOO.example.container.wait.setBody("<img src=\"images/rel_interstitial_loading
 			style="font-size: 10px;"><i>Only zip, xml, and excel files
 		allowed</i></font></li>
 		<li><s:radio name="mth"
-			list="%{#{'ftpupload':'NTUA FTP Upload'}}"
+			list="%{#{'ftpupload':'FTP Upload'}}"
 			onclick='$("input[name=mth]~ :input").attr( "disabled", true ); $("#Import_flist").attr( "disabled",false)' /><s:select
 			name="flist" headerKey="0" headerValue="-- Select file--"
 			list="ftpFiles" listKey="name" listValue="name" disabled="true"
-			theme="simple" /> <font style="font-size: 10px;"><i>NTUA
+			theme="simple" /> <font style="font-size: 10px;"><i>
 		FTP:<s:property value="ntuaFtpServer" /></i></font></li>
 		<li><s:radio name="mth"
 			list="%{#{'urlupload':'Remote FTP/HTTP Upload'}}"

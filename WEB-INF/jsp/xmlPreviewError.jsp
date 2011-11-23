@@ -6,7 +6,7 @@
 <%@page import="gr.ntua.ivml.athena.persistent.*"%>
 
 
-<jsp:useBean id="fullDoc" class="gr.ntua.ivml.athena.xml.FullBean"/>
+
 
 
 <style type="text/css">
@@ -33,10 +33,9 @@ if(uploadId == null) {
 	StringWriter xmlWriter = new StringWriter();
 	DataUpload du = DB.getDataUploadDAO().findById(Long.parseLong(uploadId), false);
 
-    String output_ese=(String) request.getAttribute( "eseXml" );
-	if(output_ese != null && output_ese.length() > 0) {
-		fullDoc=gr.ntua.ivml.athena.xml.ESEToFullBean.getFullBean(output_ese);
-			}
+   String output_ese=(String) request.getAttribute( "eseXml" );
+	
+	
 		
 	
 	
@@ -67,7 +66,6 @@ if(uploadId == null) {
 	        <li class="selected"><a href="#tab1"><em>LIDO XML</em></a></li> 
 	        
 	        <li><a href="#tab2"><em>Output XML (ESE)</em></a></li>
-	        <li><a href="#tab3"><em>Europeana</em></a></li>
 	      
 	     
 	    </ul>             
@@ -92,9 +90,6 @@ if(uploadId == null) {
 	        	<textarea name='code' class="xml" style='width: 100%' rows='25' columns='50' readonly><%=StringEscapeUtils.escapeHtml(eseXml)%></textarea>
 	        </div></p></div>
 	   
-	        <div><p><div style="width: 100%; height: 350px; overflow-x: auto; overflow-y: auto; background-color:#FFFFFF;">
-	               <%@ include file="eseview.jsp"%>
-	        </div></p></div>
 	    
 	     
 	         </div> 
